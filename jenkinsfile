@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+
+    stages {
+	
+        stage('Build stage') {
+            steps {
+                withmaven(maven : 'maven') {
+				'mvn clean install package'
+				'echo 'Building..'
+						}
+					}
+			}
+        
+		
+        stage('testing stage') {
+            steps {
+                withmaven(maven : 'maven'){
+				'mvn test'
+				'echo 'Testing..'
+						}
+					}
+			}
+
+		
+        stage('Deployment Stage') {
+            steps {
+                withmaven(maven : 'maven'){
+				'mvn deploy'
+				'echo 'Deploying..'
+						}
+					}
+			}
+
+}
+}
